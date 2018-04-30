@@ -1,7 +1,7 @@
 {
-  "name": "reachOutToUs",
+  "name": "reach_out_to_us",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
@@ -33,6 +33,7 @@
     "type": "git",
     "url": "git://github.com/anonymous node/sails user/reachOutToUs.git"
   },
-  "author": "anonymous node/sails user",
-  "license": ""
+  "author": "awasthishubh",
+  "license": "ISC",
+  "devDependencies": {}
 }
