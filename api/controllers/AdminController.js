@@ -81,15 +81,6 @@ module.exports = {
 	}
 
 	logout: function (req, res) {
-		var jwt = require('jsonwebtoken');
-		var token=jwt.verify(req.cookies['token'],'sh');
-		Admin.findOne({id:token['id']}, function(err, record) {
-			if(err){
-				return res.json(500,{message:"Something is wrong"});
-			}
-			var randomstring = require("randomstring");
-			record.rand=randomstring.generate(7);
-		})
 	}
 };
 
