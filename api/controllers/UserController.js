@@ -6,20 +6,16 @@
  */
 module.exports = {
 	index: function(req,res) {
-		res.header("Access-Control-Allow-Origin", "*");
-  		res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  		Problem.find({where: { public: true }}).exec(function(err, records){
+  		Problem.find({where: { public: true }}, function(err, records){
 			if(err){
 				console.log(err);
 				return res.json(500,{err:"Something Went Wrong."});
 			}	
-			return res.json(200,{msg:"Success"});
+			return res.json(200,records);
 		}
 	},
 
 	create: function(req,res) {
-		res.header("Access-Control-Allow-Origin", "*");
-  		res.header("Access-Control-Allow-Headers", "X-Requested-With");
   		data=req.param('data');	
   		Problem.create(data,function(err,user){
 			if(err){
@@ -28,6 +24,11 @@ module.exports = {
 			}	
 			return res.json(200,{msg:"Success"});
 		});
+	},
+
+	cookie: function(req,res) {
+		res.cookie('cook',true);
+		res.send("sd");
 	}
 };
 
