@@ -18,8 +18,8 @@ module.exports = {
    ***************************************************************************/
 
   models: {
-    connection: 'localDiskDb',
-    migration: "alter"
+    connection: 'mlab',
+    migrate: "alter"
   }
 
 };

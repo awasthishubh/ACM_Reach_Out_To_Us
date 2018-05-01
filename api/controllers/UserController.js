@@ -32,11 +32,19 @@ module.exports = {
 		// res.cookie('cooks',"hbzzhb");
 		// res.send("sdz");
 		// verify a token symmetric - synchronous
+		// var jwt = require('jsonwebtoken');
+		// var token = jwt.sign({ foo: 'bar' });
+		// console.log(token);
+		// var decoded = jwt.verify(token);
+		// console.log(decoded) // bar
+		// FLOOR((C2-345600000)/604800000,1)*604800000
+		
 		var jwt = require('jsonwebtoken');
-		var token = jwt.sign({ foo: 'bar' });
+		var token=jwt.verify("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhZTg4ZjZkYzFjODEyNzE0OGI1ODNiOCIsInJhbmQiOiI5M2QzSlBFIiwiaWF0IjoxNTI1MTkwNTU0fQ.RTg_j1uYP-0RnhAcu_AuajpDGC7vbPr6GVo0vrKApVs",'sh');
+		mongo=require('sails-mongo');
+		var id = require('mongodb').ObjectID(token["id"]);
+		console.log({_id:id, rand: token['rand']});
 		console.log(token);
-		var decoded = jwt.verify(token);
-		console.log(decoded) // bar
 		
 	}
 };

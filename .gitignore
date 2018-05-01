@@ -117,3 +117,4 @@ nbproject
 .idea
 .node_history
 package-lock.json
+config/connections.js
