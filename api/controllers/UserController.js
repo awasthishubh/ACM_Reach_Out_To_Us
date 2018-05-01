@@ -6,6 +6,15 @@
  */
 module.exports = {
 	index: function(req,res) {
+		var randomstring = require("randomstring")
+
+		// if(!req.cookies['client']){
+			client=randomstring.generate(16);
+			res.cookie('client',client);
+		// } else {
+		// 	client=req.cookies['client'];
+		// }
+		
   		Problems.find({where: { public: true }}, function(err, records){
 			if(err){
 				console.log(err);
@@ -26,7 +35,7 @@ module.exports = {
 		});
 	},
 
-	cookie: function(req,res) {
+	test: function(req,res) {
 		//res.
 		// console.log(req.cookies);
 		// res.cookie('cooks',"hbzzhb");
