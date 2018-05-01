@@ -8,13 +8,13 @@ module.exports = {
 	index: function(req,res) {
 		var randomstring = require("randomstring")
 
-		// if(!req.cookies['client']){
+		if(!req.cookies['client']){
 			client=randomstring.generate(16);
-			res.cookie('client',client);
-		// } else {
-		// 	client=req.cookies['client'];
-		// }
-		
+			res.cookie('client',client,{ maxAge: 9000000000000});
+		} else {
+			client=req.cookies['client'];
+		}
+		console.log(client)
   		Problems.find({where: { public: true }}, function(err, records){
 			if(err){
 				console.log(err);
