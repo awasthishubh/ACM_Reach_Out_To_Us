@@ -34,7 +34,7 @@ module.exports = {
 	delete : function(req,res) {
 		var jwt = require('jsonwebtoken');
 		var token=jwt.verify(req.cookies['token'],'sh');
-		console.log({usid:token.id, token: token.rand});
+		// console.log({usid:token.id, token: token.rand});
 		Admin.findOne({_id:require('mongodb').ObjectID(token["id"]), rand: token['rand']}, function(err, data) {
 			if(err){
 				return res.json(500,{message:"Something is wrong"})
@@ -43,10 +43,14 @@ module.exports = {
 				return res.json({msg:"Not autherised. Try login again"})
 			}
 
-			Problems.destroy({_id:require('mongodb').ObjectID(req.param('id'))}).exec(function (err,record) {
+			Problems.destroy({id:req.param('id')}, function (err,record) {
 				if(err){
-					console.log(err);
+					// console.log(err);
 					return res.json(500,{err:"Something Went Wrong."});
+				}
+				
+				if(record.length==0){
+					return res.json({err:"Invalid id"})
 				}
 				return res.json(200,{msg:"Sucess"})
 			})
@@ -62,14 +66,14 @@ module.exports = {
 				return res.json({msg:"Invalid Username"})
 			}
 
-			var bcrypt=require('bcrypt-nodejs');
+			// var bcrypt=require('bcrypt-nodejs');
 			//bcrypt.compare(req.param('pass'),data.pass,function(err,rest){
 				if(req.param('pass')==data.pass){
 					var randomstring = require("randomstring")
 					rand=randomstring.generate(7)
 					data.rand=rand;
 					data.save();
-					console.log(data)
+					// console.log(data)
 					var jwt = require('jsonwebtoken');
 					token=jwt.sign({ id: data.id, rand: rand },'sh');
 					res.cookie('token',token);
