@@ -95,6 +95,40 @@ module.exports = {
 			return res.json(200,{message:"Sucess"});
 		})
 		//return res.json(200,{message:"Invalid Token"});
+	},
+
+	file: function(req,res) {
+		var jwt = require('jsonwebtoken');
+		var token=jwt.verify(req.cookies['token'],'sh');
+		// console.log({usid:token.id, token: token.rand});
+		res.header("Content-Type", "text/plain; charset=utf-8");
+		res.header("Content-Disposition", "attachment; filename=err.txt");
+		Admin.findOne({id:token["id"], rand: token['rand']}, function(err, data){
+			if(err){
+				return res.json(500,{message:"Something is wrong", err:err})
+			}
+			if(!data){
+				return res.json({msg:"Not autherised. Try login again"})
+			}
+
+			Problems.findOne({id:req.param('id')}, function(err, record){
+				if(err){
+					console.log(err);
+					return res.json(500,{err:"Something Went Wrong."});
+				}	
+				if(!record){
+					return res.json({err:"Invalid id"})
+				}
+
+				content="Name:\t"+record.name+"\r\nGender:\t"+record.gender;
+				content+="\r\nAge:\t"+record.age+"\r\nEmail:\t"+record.email;
+				content+="\r\n\r\nType:\t"+record.type+"\r\nCategory:\t"+record.category;
+				content+="\r\n\r\nDescription:\r\n\t"+record.description;
+				content+="\r\n\r\nUp: "+record.up.length+"\t\tDown: "+record.down.length;
+				res.header("Content-Disposition", "attachment; filename="+record.id+".txt");
+				res.send(content);
+			})
+		});
 	}
 };
 

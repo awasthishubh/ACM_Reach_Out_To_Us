@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-	pidata: function(req,res) {
+	bardata: function(req,res) {
 		record={}
 		Problems.find({}, function(err,response){
 	        if(err) return res.json(error);
@@ -24,14 +24,36 @@ module.exports = {
 	    });
 	},
 
-	file: function(req,res) {
-		res.header("Content-Type", "text/plain; charset=utf-8");
-		// res.header("Content-Disposition", "attachment");
-		res.header("Content-Disposition", "attachment; filename="+"text");
+	pidata: function (req,res) {
+		Problems.native(function(err, collection) {
+		  if (err) return res.json(err);
 
+		  collection.aggregate([{"$group" : {_id:"$category", count:{$sum:1}}}]).toArray(function (err, results) {
+		    if (err) return res.serverError(err);
+		    return res.ok(results);
+			});
+		});
+	},
 
-		res.send("sdssd\r\ndfrere\tfefsdsde\nrsds<br>dser")
-	}
+	pdata: function (req,res) {
+		Problems.native(function(err, collection) {
+		  if (err) return res.json(err);
+
+		  collection.aggregate([
+								    { "$project": {
+								        "week": { "$week": "$createdAt" }
+								    }}, 
+								    { "$group": {
+								        "_id": "$week",
+								        "total": { "$sum": 1 }
+								    }}
+								]).toArray(function (err, results) {
+		    if (err) return res.serverError(err);
+		    return res.ok(results);
+			});
+		});
+	}	
+
 
 	
 };
