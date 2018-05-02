@@ -47,10 +47,7 @@ module.exports = {
 			client=req.cookies['client'];
 		}
 
-  		data=req.param('data');	
-  		//data.age=23//parseInt(data.age);
-  		//// console.log(parseInt(data.age));
-  		// console.log(data);
+  		data=req.param('data');
   		if(!(data.name && data.gender && data.email && data.category && data.description && data.type))
   			return res.json(404,{err:"Arguments missing"});
 
