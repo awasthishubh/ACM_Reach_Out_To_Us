@@ -57,7 +57,7 @@ module.exports.connections = {
   *                                                                          *
   ***************************************************************************/
   mlab: {
-    adapter: 'sails-mongo',process.env.PORT
+    adapter: 'sails-mongo',
     url: process.env.dburl
   },
 
