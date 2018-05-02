@@ -21,6 +21,10 @@
 > * Delete a problem statement
 > * Download a problem statement as a txt file
 
+* Data Controller
+
+> * Get data for graph
+
 ### Packages Used:
 ----------
 * [bcrypt-nodejs](https://www.npmjs.com/package/bcrypt-nodejs)
