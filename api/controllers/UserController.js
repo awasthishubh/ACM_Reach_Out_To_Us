@@ -7,25 +7,45 @@
 module.exports = {
 	index: function(req,res) {
 		var randomstring = require("randomstring")
-
 		if(!req.cookies['client']){
 			client=randomstring.generate(16);
 			res.cookie('client',client,{ maxAge: 9000000000000});
 		} else {
 			client=req.cookies['client'];
 		}
+
 		console.log(client)
   		Problems.find({where: { public: true }}, function(err, records){
 			if(err){
 				console.log(err);
 				return res.json(500,{err:"Something Went Wrong."});
-			}	
+			}
+			records.forEach(function(record) {
+				records.upvote=false;
+				records.downvote=false;
+				if(records.up.indexOf(client)>-1){
+					records.upvote=true;
+				}
+				if(records.down.indexOf(client)>-1){
+					records.downvote=true;
+				}
+			})				
 			return res.json(200,records);
 		})
 	},
 
 	create: function(req,res) {
+		var randomstring = require("randomstring")
+		if(!req.cookies['client']){
+			client=randomstring.generate(16);
+			res.cookie('client',client,{ maxAge: 9000000000000});
+		} else {
+			client=req.cookies['client'];
+		}
+
   		data=req.param('data');	
+  		data.up=[];
+  		data.down=[]
   		Problems.create(data,function(err,user){
 			if(err){
 				console.log(err);
@@ -34,6 +54,70 @@ module.exports = {
 			return res.json(200,{msg:"Success"});
 		});
 	},
+
+	upvote:function(req,res) {
+		var randomstring = require("randomstring")
+		if(!req.cookies['client']){
+			client=randomstring.generate(16);
+			res.cookie('client',client,{ maxAge: 9000000000000});
+		} else {
+			client=req.cookies['client'];
+		}
+
+		id=req.param('id');
+
+		Problems.findOne({_id:require('mongodb').ObjectID(token["id"])}, function(err, record) {
+			if(err){
+				return res.json(500,{message:"Something is wrong"})
+			}
+			if(!record){
+				return res.json({msg:"Invalid id"})
+			}
+		
+
+			if(record.down.indexOf(client)>-1){
+					record.down.unshift(client)
+				}
+			else{
+				record.up.push(client)
+			}
+			record.save();
+			return res.json({msg:"Success"});
+			
+		})
+	}
+
+	downvote:function(req,res) {
+		var randomstring = require("randomstring")
+		if(!req.cookies['client']){
+			client=randomstring.generate(16);
+			res.cookie('client',client,{ maxAge: 9000000000000});
+		} else {
+			client=req.cookies['client'];
+		}
+
+		id=req.param('id');
+
+		Problems.findOne({_id:require('mongodb').ObjectID(token["id"])}, function(err, record) {
+			if(err){
+				return res.json(500,{message:"Something is wrong"})
+			}
+			if(!record){
+				return res.json({msg:"Invalid id"})
+			}
+		
+
+			if(record.up.indexOf(client)>-1){
+					record.up.unshift(client)
+				}
+			else{
+				record.down.push(client)
+			}
+			record.save();
+			return res.json({msg:"Success"});
+			
+		})
+	}
 
 	test: function(req,res) {
 		//res.
