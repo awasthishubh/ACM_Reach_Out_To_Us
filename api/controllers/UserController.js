@@ -51,10 +51,12 @@ module.exports = {
   		//data.age=23//parseInt(data.age);
   		//// console.log(parseInt(data.age));
   		// console.log(data);
-  		Problems.create(data,function(err,user){
+  		if(!(data.name && data.gender && data.email && data.category && data.description && data.type))
+  			return res.json(404,{err:"Arguments missing"});
 
+  		Problems.create(data,function(err,user){
 			if(err){
-				// console.log(err);
+				console.log(err);
 				return res.json(500,{err:"Something Went Wrong."});
 			}	
 			return res.json(200,{msg:"Success"});

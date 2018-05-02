@@ -44,7 +44,7 @@ module.exports = {
 			defaultsTo:[]
 		},
 		time: {
-			type: "double",
+			type: "integer",
 			defaultsTo: Date.now()
 		}
 
