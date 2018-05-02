@@ -13,7 +13,7 @@ module.exports = {
 		},
 		pass:{
 			type:"string"
-		}
+		},
 		rand:{
 			type:"string"
 		}

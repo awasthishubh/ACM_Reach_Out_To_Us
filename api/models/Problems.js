@@ -11,35 +11,35 @@ module.exports = {
 		name: {
 			type:"string"
 		},
-		age {
+		age: {
 			type:"number"
 		},
-		gender {
+		gender: {
 			type:"string"
 		},
-		email {
+		email: {
 			type:"string"
 		},
-		category {
+		category: {
 			type:"string"
 		},
-		description {
+		description: {
 			type:"string"
 		},
-		type {
+		type: {
 			type:"string"
 		},
-		location {
+		location: {
 			type:"json"
 		},
 		public:{
 			type:"boolean"
 		},
-		up {
+		up: {
 			type: "array",
 			defaultsTo:[]
-		}
-		down {
+		},
+		down: {
 			type: "array",
 			defaultsTo:[]
 		}

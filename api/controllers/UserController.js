@@ -44,8 +44,8 @@ module.exports = {
 		}
 
   		data=req.param('data');	
-  		data.up=[];
-  		data.down=[]
+  		console.log(data);
+  		data.age=parseInt(data.age);
   		Problems.create(data,function(err,user){
 			if(err){
 				console.log(err);
@@ -85,7 +85,7 @@ module.exports = {
 			return res.json({msg:"Success"});
 			
 		})
-	}
+	},
 
 	downvote:function(req,res) {
 		var randomstring = require("randomstring")
@@ -117,7 +117,7 @@ module.exports = {
 			return res.json({msg:"Success"});
 			
 		})
-	}
+	},
 
 	test: function(req,res) {
 		//res.
