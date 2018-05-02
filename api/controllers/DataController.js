@@ -22,6 +22,15 @@ module.exports = {
 	        });
 	        return res.json(record)
 	    });
+	},
+
+	file: function(req,res) {
+		res.header("Content-Type", "text/plain; charset=utf-8");
+		// res.header("Content-Disposition", "attachment");
+		res.header("Content-Disposition", "attachment; filename="+"text");
+
+
+		res.send("sdssd\r\ndfrere\tfefsdsde\nrsds<br>dser")
 	}
 
 	
