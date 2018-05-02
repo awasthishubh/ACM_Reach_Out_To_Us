@@ -7,10 +7,43 @@
 
 module.exports = {
 
-  attributes: {
-  	public:{
-  		type:"bool"
-  	}
-  }
+	attributes: {
+		name: {
+			type:"string"
+		},
+		age {
+			type:"number"
+		},
+		gender {
+			type:"string"
+		},
+		email {
+			type:"string"
+		},
+		category {
+			type:"string"
+		},
+		description {
+			type:"string"
+		},
+		type {
+			type:"string"
+		},
+		location {
+			type:"json"
+		},
+		public:{
+			type:"boolean"
+		},
+		up {
+			type: "array",
+			defaultsTo:[]
+		}
+		down {
+			type: "array",
+			defaultsTo:[]
+		}
+
+	}
 };
 

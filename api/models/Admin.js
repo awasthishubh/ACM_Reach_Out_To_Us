@@ -7,8 +7,16 @@
 
 module.exports = {
 
-  attributes: {
-
-  }
+	attributes: {
+		usid:{
+			type:"string"
+		},
+		pass:{
+			type:"string"
+		}
+		rand:{
+			type:"string"
+		}
+	}
 };
 
