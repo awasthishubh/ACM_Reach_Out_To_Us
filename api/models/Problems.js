@@ -12,7 +12,7 @@ module.exports = {
 			type:"string"
 		},
 		age: {
-			type:"number"
+			type:"integer"
 		},
 		gender: {
 			type:"string"

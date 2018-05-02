@@ -20,14 +20,18 @@ module.exports = {
 				console.log(err);
 				return res.json(500,{err:"Something Went Wrong."});
 			}
+			if(!records){
+				return res.json(500,{err:"Empty."});
+			}
+
 			records.forEach(function(record) {
-				records.upvote=false;
-				records.downvote=false;
-				if(records.up.indexOf(client)>-1){
-					records.upvote=true;
+				record.upvote=false;
+				record.downvote=false;
+				if(record.up.indexOf(client)>-1){
+					record.upvote=true;
 				}
-				if(records.down.indexOf(client)>-1){
-					records.downvote=true;
+				if(record.down.indexOf(client)>-1){
+					record.downvote=true;
 				}
 			})				
 			return res.json(200,records);
@@ -44,9 +48,11 @@ module.exports = {
 		}
 
   		data=req.param('data');	
+  		//data.age=23//parseInt(data.age);
+  		//console.log(parseInt(data.age));
   		console.log(data);
-  		data.age=parseInt(data.age);
   		Problems.create(data,function(err,user){
+
 			if(err){
 				console.log(err);
 				return res.json(500,{err:"Something Went Wrong."});
@@ -66,20 +72,23 @@ module.exports = {
 
 		id=req.param('id');
 
-		Problems.findOne({_id:require('mongodb').ObjectID(token["id"])}, function(err, record) {
+		Problems.findOne({id:id}, function(err, record) {
 			if(err){
 				return res.json(500,{message:"Something is wrong"})
 			}
 			if(!record){
 				return res.json({msg:"Invalid id"})
 			}
-		
+			console.log(record)
+			console.log(record.down)
 
 			if(record.down.indexOf(client)>-1){
 					record.down.unshift(client)
+					console.log("Ss")
 				}
 			else{
 				record.up.push(client)
+				console.log(record.up)
 			}
 			record.save();
 			return res.json({msg:"Success"});
@@ -98,7 +107,7 @@ module.exports = {
 
 		id=req.param('id');
 
-		Problems.findOne({_id:require('mongodb').ObjectID(token["id"])}, function(err, record) {
+		Problems.findOne({id:id}, function(err, record) {
 			if(err){
 				return res.json(500,{message:"Something is wrong"})
 			}
@@ -108,7 +117,7 @@ module.exports = {
 		
 
 			if(record.up.indexOf(client)>-1){
-					record.up.unshift(client)
+					record.up.shift(client)
 				}
 			else{
 				record.down.push(client)
