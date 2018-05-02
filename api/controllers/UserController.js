@@ -14,10 +14,10 @@ module.exports = {
 			client=req.cookies['client'];
 		}
 
-		console.log(client)
+		// console.log(client)
   		Problems.find({where: { public: true }}, function(err, records){
 			if(err){
-				console.log(err);
+				// console.log(err);
 				return res.json(500,{err:"Something Went Wrong."});
 			}
 			if(!records){
@@ -49,12 +49,12 @@ module.exports = {
 
   		data=req.param('data');	
   		//data.age=23//parseInt(data.age);
-  		//console.log(parseInt(data.age));
-  		console.log(data);
+  		//// console.log(parseInt(data.age));
+  		// console.log(data);
   		Problems.create(data,function(err,user){
 
 			if(err){
-				console.log(err);
+				// console.log(err);
 				return res.json(500,{err:"Something Went Wrong."});
 			}	
 			return res.json(200,{msg:"Success"});
@@ -79,16 +79,15 @@ module.exports = {
 			if(!record){
 				return res.json({msg:"Invalid id"})
 			}
-			console.log(record)
-			console.log(record.down)
+			// console.log(record)
+			// console.log(record.down)
 
 			if(record.down.indexOf(client)>-1){
-					record.down.unshift(client)
-					console.log("Ss")
+					record.down.splice(record.down.indexOf(client),1)
+					// console.log("Ss")
 				}
 			else{
-				record.up.push(client)
-				console.log(record.up)
+				if(record.up.indexOf(client)==-1)  record.up.push(client)
 			}
 			record.save();
 			return res.json({msg:"Success"});
@@ -117,10 +116,10 @@ module.exports = {
 		
 
 			if(record.up.indexOf(client)>-1){
-					record.up.shift(client)
+					record.up.splice(record.up.indexOf(client),1)
 				}
 			else{
-				record.down.push(client)
+				if(record.down.indexOf(client)==-1) record.down.push(client)
 			}
 			record.save();
 			return res.json({msg:"Success"});
@@ -130,24 +129,24 @@ module.exports = {
 
 	test: function(req,res) {
 		//res.
-		// console.log(req.cookies);
+		// // console.log(req.cookies);
 		// res.cookie('cooks',"hbzzhb");
 		// res.send("sdz");
 		// verify a token symmetric - synchronous
 		// var jwt = require('jsonwebtoken');
 		// var token = jwt.sign({ foo: 'bar' });
-		// console.log(token);
+		// // console.log(token);
 		// var decoded = jwt.verify(token);
-		// console.log(decoded) // bar
+		// // console.log(decoded) // bar
 		// FLOOR((C2-345600000)/604800000,1)*604800000
 		
-		var jwt = require('jsonwebtoken');
-		var token=jwt.verify("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhZTg4ZjZkYzFjODEyNzE0OGI1ODNiOCIsInJhbmQiOiI5M2QzSlBFIiwiaWF0IjoxNTI1MTkwNTU0fQ.RTg_j1uYP-0RnhAcu_AuajpDGC7vbPr6GVo0vrKApVs",'sh');
-		mongo=require('sails-mongo');
-		var id = require('mongodb').ObjectID(token["id"]);
-		console.log({_id:id, rand: token['rand']});
-		console.log(token);
-		console.log(Date.now())
+		// var jwt = require('jsonwebtoken');
+		// var token=jwt.verify("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhZTg4ZjZkYzFjODEyNzE0OGI1ODNiOCIsInJhbmQiOiI5M2QzSlBFIiwiaWF0IjoxNTI1MTkwNTU0fQ.RTg_j1uYP-0RnhAcu_AuajpDGC7vbPr6GVo0vrKApVs",'sh');
+		// mongo=require('sails-mongo');
+		// var id = require('mongodb').ObjectID(token["id"]);
+		// // console.log({_id:id, rand: token['rand']});
+		// // console.log(token);
+		// // console.log(Date.now())
 		
 	}
 };
