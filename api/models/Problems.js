@@ -42,10 +42,6 @@ module.exports = {
 		down: {
 			type: "array",
 			defaultsTo:[]
-		},
-		time: {
-			type: "integer",
-			defaultsTo: Date.now()
 		}
 
 	}
