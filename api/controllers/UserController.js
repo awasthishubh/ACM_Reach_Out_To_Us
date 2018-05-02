@@ -147,6 +147,7 @@ module.exports = {
 		var id = require('mongodb').ObjectID(token["id"]);
 		console.log({_id:id, rand: token['rand']});
 		console.log(token);
+		console.log(Date.now())
 		
 	}
 };
