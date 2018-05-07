@@ -1,4 +1,7 @@
 FROM node:9.11.1-alpine
 MAINTAINER awasthishubh aw.shubh@gmail.com
-COPY ./ /home/node/acm-reachout
-RUN cd /home/node/acm-reachout && npm install && npm install sails --g
+WORKDIR /home/node/acm-reachout
+COPY ./ ./
+RUN npm install && npm install sails --global
+EXPOSE 1337
+CMD ["sails","lift"]
