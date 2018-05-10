@@ -8,25 +8,34 @@
 module.exports = {
 	index: function(req,res) {
 		var jwt = require('jsonwebtoken');
-		var token=jwt.verify(req.cookies['token'],'sh');
-		console.log({usid:token.id, token: token.rand});
-		Admin.findOne({_id:require('mongodb').ObjectID(token["id"]), rand: token['rand']}, function(err, data) {
+		// var token=jwt.verify(req.cookies['token'],'sh');
+
+		jwt.verify(req.cookies['token'], 'sh', function(err, token) {
 			if(err){
-				return res.json(500,{message:"Something is wrong"})
+				console.log(jwt)
+				return res.json(401, {err:"Not Autherised"})
 			}
-			if(!data){
-				return res.json(401,{msg:"Not autherised. Try login again"})
-			}
-
-			Problems.find({}).exec(function(err, records){
+			console.log({usid:token.id, token: token.rand});
+			Admin.findOne({_id:require('mongodb').ObjectID(token["id"]), rand: token['rand']}, function(err, data) {
 				if(err){
-					console.log(err);
-					return res.json(500,{err:"Something Went Wrong."});
-				}	
-				return res.json(200,records);
-			})
+					return res.json(500,{message:"Something is wrong"})
+				}
+				if(!data){
+					return res.json(401,{msg:"Not autherised. Try login again"})
+				}
 
-		})
+				Problems.find({}).exec(function(err, records){
+					if(err){
+						console.log(err);
+						return res.json(500,{err:"Something Went Wrong."});
+					}	
+					return res.json(200,records);
+				})
+
+			})
+		});
+
+		
 
   		
 	},
@@ -45,7 +54,7 @@ module.exports = {
 
 			Problems.destroy({id:req.param('id')}, function (err,record) {
 				if(err){
-					// console.log(err);
+					console.log(err);
 					return res.json(500,{err:"Something Went Wrong."});
 				}
 				
