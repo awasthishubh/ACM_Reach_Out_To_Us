@@ -21,7 +21,7 @@ module.exports = {
 				return res.json(500,{err:"Something Went Wrong."});
 			}
 			if(!records){
-				return res.json(500,{err:"Empty."});
+				return res.json(404,{err:"No public prb statement found."});
 			}
 
 			records.forEach(function(record) {
@@ -49,7 +49,7 @@ module.exports = {
 
   		data=req.param('data');
   		if(!(data.name && data.gender && data.email && data.category && data.description && data.type))
-  			return res.json(404,{err:"Arguments missing"});
+  			return res.json(400,{msg:"Bad Request", err: err});
 
   		Problems.create(data,function(err,user){
 			if(err){
@@ -76,7 +76,7 @@ module.exports = {
 				return res.json(500,{message:"Something is wrong"})
 			}
 			if(!record){
-				return res.json({msg:"Invalid id"})
+				return res.json(404, {msg:"Id not found"})
 			}
 			// console.log(record)
 			// console.log(record.down)
@@ -89,7 +89,7 @@ module.exports = {
 				if(record.up.indexOf(client)==-1)  record.up.push(client)
 			}
 			record.save();
-			return res.json({msg:"Success"});
+			return res.json(200, {msg:"Success"});
 			
 		})
 	},
@@ -110,7 +110,7 @@ module.exports = {
 				return res.json(500,{message:"Something is wrong"})
 			}
 			if(!record){
-				return res.json({msg:"Invalid id"})
+				return res.json(404, {msg:"ID not found"})
 			}
 		
 
@@ -121,7 +121,7 @@ module.exports = {
 				if(record.down.indexOf(client)==-1) record.down.push(client)
 			}
 			record.save();
-			return res.json({msg:"Success"});
+			return res.json(200,{msg:"Success"});
 			
 		})
 	},

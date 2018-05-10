@@ -15,7 +15,7 @@ module.exports = {
 				return res.json(500,{message:"Something is wrong"})
 			}
 			if(!data){
-				return res.json({msg:"Not autherised. Try login again"})
+				return res.json(401,{msg:"Not autherised. Try login again"})
 			}
 
 			Problems.find({}).exec(function(err, records){
@@ -40,7 +40,7 @@ module.exports = {
 				return res.json(500,{message:"Something is wrong"})
 			}
 			if(!data){
-				return res.json({msg:"Not autherised. Try login again"})
+				return res.json(401,{msg:"Not autherised. Try login again"})
 			}
 
 			Problems.destroy({id:req.param('id')}, function (err,record) {
@@ -50,7 +50,7 @@ module.exports = {
 				}
 				
 				if(record.length==0){
-					return res.json({err:"Invalid id"})
+					return res.json(404, {err:"Id not found"})
 				}
 				return res.json(200,{msg:"Sucess"})
 			})
@@ -63,7 +63,7 @@ module.exports = {
 				return res.json(500,{message:"Something is wrong"})
 			}
 			if(!data){
-				return res.json({msg:"Invalid Username"})
+				return res.json(401,{msg:"Username not found"})
 			}
 
 			// var bcrypt=require('bcrypt-nodejs');
@@ -80,7 +80,7 @@ module.exports = {
 					return res.json(200,{msg:"Sucess"});
 				}
 				else{
-					return res.json(200,{err:"Invalid Password."});
+					return res.json(401, {err:"Invalid Password."});
 				}
 			///});
 		})
@@ -112,7 +112,7 @@ module.exports = {
 				return res.json(500,{message:"Something is wrong", err:err})
 			}
 			if(!data){
-				return res.json({msg:"Not autherised. Try login again"})
+				return res.json(401,{msg:"Not autherised. Try login again"})
 			}
 
 			Problems.findOne({id:req.param('id')}, function(err, record){
@@ -121,7 +121,7 @@ module.exports = {
 					return res.json(500,{err:"Something Went Wrong."});
 				}	
 				if(!record){
-					return res.json({err:"Invalid id"})
+					return res.json(401, {err:"Id not found"})
 				}
 
 				content="Name:\t"+record.name+"\r\nGender:\t"+record.gender;
