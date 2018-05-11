@@ -23,10 +23,10 @@ module.exports = {
 
 		  collection.aggregate([
 								    { "$project": {
-								        "week": { "$week": "$createdAt" }
+								        "month": { "$month": "$createdAt" }
 								    }}, 
 								    { "$group": {
-								        "_id": "$week",
+								        "_id": "$month",
 								        "total": { "$sum": 1 }
 								    }}
 								]).toArray(function (err, results) {
