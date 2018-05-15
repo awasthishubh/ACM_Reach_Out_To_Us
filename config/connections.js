@@ -58,7 +58,7 @@ module.exports.connections = {
   ***************************************************************************/
   mlab: {
     adapter: 'sails-mongo',
-    url: process.env.dburl
+    url: process.env.dburl || require('./keys.js').dburl
   },
 
   /***************************************************************************

@@ -30,7 +30,8 @@ module.exports = {
 			type:"string"
 		},
 		location: {
-			type:"json"
+			type:"json",
+			defaultsTo:[]
 		},
 		public:{
 			type:"boolean"
