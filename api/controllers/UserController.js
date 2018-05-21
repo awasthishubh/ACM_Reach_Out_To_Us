@@ -15,7 +15,7 @@ module.exports = {
 		}
 
 		// console.log(client)
-  		Problems.find({where: { public: true }}, function(err, records){
+  		Problems.find({where: { public: true }, sort:'createdAt DESC'}, function(err, records){
 			if(err){
 				// console.log(err);
 				return res.json(500,{err:"Something Went Wrong."});

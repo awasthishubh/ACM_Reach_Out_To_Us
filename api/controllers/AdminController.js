@@ -16,7 +16,7 @@ module.exports = {
 				return res.json(401, {err:"Not Autherised"})
 			}
 			console.log({usid:token.id, token: token.rand});
-			Admin.findOne({_id:require('mongodb').ObjectID(token["id"]), rand: token['rand']}, function(err, data) {
+			Admin.findOne({id:token["id"], rand: token['rand']}, function(err, data) {
 				if(err){
 					return res.json(500,{message:"Something is wrong"})
 				}
@@ -24,7 +24,7 @@ module.exports = {
 					return res.json(401,{msg:"Not autherised. Try login again"})
 				}
 
-				Problems.find({}).exec(function(err, records){
+				Problems.find({where:{},sort: 'createdAt DESC'}).exec(function(err, records){
 					if(err){
 						console.log(err);
 						return res.json(500,{err:"Something Went Wrong."});
