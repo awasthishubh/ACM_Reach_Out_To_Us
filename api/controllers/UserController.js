@@ -81,13 +81,10 @@ module.exports = {
 			// console.log(record)
 			// console.log(record.down)
 
-			if(record.down.indexOf(client)>-1){
-					record.down.splice(record.down.indexOf(client),1)
-					// console.log("Ss")
-				}
-			else{
-				if(record.up.indexOf(client)==-1)  record.up.push(client)
-			}
+			if(record.down.indexOf(client)>-1) record.down.splice(record.down.indexOf(client),1)
+			if(record.up.indexOf(client)>-1) record.up.splice(record.up.indexOf(client),1)
+			else record.up.push(client)
+			
 			record.save();
 			return res.json(200, {msg:"Success"});
 			
@@ -114,12 +111,10 @@ module.exports = {
 			}
 		
 
-			if(record.up.indexOf(client)>-1){
-					record.up.splice(record.up.indexOf(client),1)
-				}
-			else{
-				if(record.down.indexOf(client)==-1) record.down.push(client)
-			}
+			if(record.up.indexOf(client)>-1) record.up.splice(record.up.indexOf(client),1)
+			if(record.down.indexOf(client)>-1) record.down.splice(record.down.indexOf(client),1)
+			else record.down.push(client)
+			
 			record.save();
 			return res.json(200,{msg:"Success"});
 			
