@@ -20,6 +20,7 @@ module.exports = {
 	problems: function (req,res) {
 		Problems.count({},function(err, data) {
 			console.log(data);
+			return res.json(200,{total:data})
 		})
 	},
 
