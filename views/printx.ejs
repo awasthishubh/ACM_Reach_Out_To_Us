@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+     <title>Print Problems</title>
+   </head>
+   <style type="text/css">
+     .card {
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+      background-color: white;
+      width: 96%;
+      display: inline-block;
+      margin: 20px 2%;
+      position: relative;
+    }
+
+    .container {
+      padding: 20px
+    }
+    .txt{
+      font-size: 15px;
+      margin: 5px;
+    }
+    .date{
+      position: absolute;
+      right: 0px;
+      bottom: 0px;
+      color: grey;
+    }
+
+   </style>
+   <body style="background-color: #eeeeee; font-family: Verdana,Geneva,sans-serif; " onload="print(); close()">
+      <h1>Problem Statements:</h1>
+      <% problems.forEach(function(problem){ %>
+        <div class="card">
+          <div class="container">
+            <div class="txt"><b>Email: </b><%= problem.email %></div>
+            <div class="txt"><b>Gender: </b><%= problem.gender %></div>
+            <div class="txt"><b>Location: </b><%= problem.location.title || 'N/A' %></div>
+            <div class="txt" style="margin: 20px 0px"><b>Category: </b> <%= problem.category %>&emsp;<b>Type: </b> <%= problem.type %>&emsp;<b>Up Votes: </b> <%= problem.up.length %></div>
+            <div class="txt"><b>Description:</b><br>&emsp;<%= problem.description %></div>
+            <div class="txt"><b>Additional info:</b><br>&emsp;<%= problem.additional || 'N/A' %></div><br>
+            <div class="txt date"><%= problem.createdAt %></div>
+          </div>
+        </div>
+      <% }) %>
+
+   </body>
+ </html>
+
+<!-- <% problems.forEach(function(problem){ %>
+  <ul>
+    <li><%= problem.email %></h2>
+    <li><%= problem.gender %></h2>
+    <li><%= problem.up.length %></h2>
+    <li><%= problem.description %></h2>
+    <li><%= problem.category %></h2>
+    <li><%= problem.type %></h2>
+    <li><%= problem.location.title || 'N/A' %></h2>
+    <li><%= problem.createdAt %></h2>
+    <li><%= problem.additional || 'N/A' %></h2>
+  </ul>
+<% }) %> -->

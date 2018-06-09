@@ -92,6 +92,15 @@ module.exports = {
 		})
 	},
 
+	print: async function (req, res) {
+		try{
+			problems= await Problems.find({where: {}, sort: "createdAt DESC"})
+			return res.view('printx',{problems,title:"All Problems"})
+		} catch(e){
+			console.log(e);
+		}
+	},
+
 	// downvote:function(req,res) {
 	// 	var randomstring = require("randomstring")
 	// 	if(!req.cookies['client']){

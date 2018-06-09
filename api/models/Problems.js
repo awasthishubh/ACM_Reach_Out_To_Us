@@ -31,7 +31,7 @@ module.exports = {
 		},
 		location: {
 			type:"json",
-			defaultsTo:[]
+			defaultsTo:{}
 		},
 		// public:{
 		// 	type:"boolean"
@@ -40,10 +40,10 @@ module.exports = {
 			type: "array",
 			defaultsTo:[]
 		},
-		down: {
-			type: "array",
-			defaultsTo:[]
-		},
+		// down: {
+		// 	type: "array",
+		// 	defaultsTo:[]
+		// },
 		additional: {
 			type: "string",
 			defaultsTo:''
