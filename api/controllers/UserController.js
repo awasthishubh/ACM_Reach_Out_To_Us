@@ -15,7 +15,7 @@ module.exports = {
 		}
 
 		// console.log(client)
-  		Problems.find({where: { public: true }, sort:'createdAt DESC'}, function(err, records){
+  		Problems.find({where: {}, sort:'createdAt DESC'}, function(err, records){
 			if(err){
 				// console.log(err);
 				return res.json(500,{err:"Something Went Wrong."});
@@ -33,7 +33,7 @@ module.exports = {
 				if(record.down.indexOf(client)>-1){
 					record.downvote=true;
 				}
-			})				
+			})
 			return res.json(200,records);
 		})
 	},
@@ -48,14 +48,15 @@ module.exports = {
 		}
 
   		data=req.param('data');
-  		if(!(data.name && data.gender && data.email && data.category && data.description && data.type))
+  		if(!(data.gender && data.email && data.category && data.description && data.type))
   			return res.json(400,{msg:"Bad Request", err: err});
 
   		Problems.create(data,function(err,user){
 			if(err){
 				console.log(err);
 				return res.json(500,{err:"Something Went Wrong."});
-			}	
+			}
+			console.log(user);
 			return res.json(200,{msg:"Success"});
 		});
 	},
@@ -84,42 +85,42 @@ module.exports = {
 			if(record.down.indexOf(client)>-1) record.down.splice(record.down.indexOf(client),1)
 			if(record.up.indexOf(client)>-1) record.up.splice(record.up.indexOf(client),1)
 			else record.up.push(client)
-			
+
 			record.save();
 			return res.json(200, {msg:"Success"});
-			
+
 		})
 	},
 
-	downvote:function(req,res) {
-		var randomstring = require("randomstring")
-		if(!req.cookies['client']){
-			client=randomstring.generate(16);
-			res.cookie('client',client,{ maxAge: 9000000000000});
-		} else {
-			client=req.cookies['client'];
-		}
-
-		id=req.param('id');
-
-		Problems.findOne({id:id}, function(err, record) {
-			if(err){
-				return res.json(500,{message:"Something is wrong"})
-			}
-			if(!record){
-				return res.json(404, {msg:"ID not found"})
-			}
-		
-
-			if(record.up.indexOf(client)>-1) record.up.splice(record.up.indexOf(client),1)
-			if(record.down.indexOf(client)>-1) record.down.splice(record.down.indexOf(client),1)
-			else record.down.push(client)
-			
-			record.save();
-			return res.json(200,{msg:"Success"});
-			
-		})
-	},
+	// downvote:function(req,res) {
+	// 	var randomstring = require("randomstring")
+	// 	if(!req.cookies['client']){
+	// 		client=randomstring.generate(16);
+	// 		res.cookie('client',client,{ maxAge: 9000000000000});
+	// 	} else {
+	// 		client=req.cookies['client'];
+	// 	}
+	//
+	// 	id=req.param('id');
+	//
+	// 	Problems.findOne({id:id}, function(err, record) {
+	// 		if(err){
+	// 			return res.json(500,{message:"Something is wrong"})
+	// 		}
+	// 		if(!record){
+	// 			return res.json(404, {msg:"ID not found"})
+	// 		}
+	//
+	//
+	// 		if(record.up.indexOf(client)>-1) record.up.splice(record.up.indexOf(client),1)
+	// 		if(record.down.indexOf(client)>-1) record.down.splice(record.down.indexOf(client),1)
+	// 		else record.down.push(client)
+	//
+	// 		record.save();
+	// 		return res.json(200,{msg:"Success"});
+	//
+	// 	})
+	// },
 
 	test: function(req,res) {
 		//res.
@@ -133,7 +134,7 @@ module.exports = {
 		// var decoded = jwt.verify(token);
 		// // console.log(decoded) // bar
 		// FLOOR((C2-345600000)/604800000,1)*604800000
-		
+
 		// var jwt = require('jsonwebtoken');
 		// var token=jwt.verify("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhZTg4ZjZkYzFjODEyNzE0OGI1ODNiOCIsInJhbmQiOiI5M2QzSlBFIiwiaWF0IjoxNTI1MTkwNTU0fQ.RTg_j1uYP-0RnhAcu_AuajpDGC7vbPr6GVo0vrKApVs",'sh');
 		// mongo=require('sails-mongo');
@@ -141,7 +142,6 @@ module.exports = {
 		// // console.log({_id:id, rand: token['rand']});
 		// // console.log(token);
 		// // console.log(Date.now())
-		
+
 	}
 };
-

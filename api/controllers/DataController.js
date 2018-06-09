@@ -17,6 +17,12 @@ module.exports = {
 		});
 	},
 
+	problems: function (req,res) {
+		Problems.count({},function(err, data) {
+			console.log(data);
+		})
+	},
+
 	bardata: function (req,res) {
 		Problems.native(function(err, collection) {
 		  if (err) return res.json(err);
@@ -24,7 +30,7 @@ module.exports = {
 		  collection.aggregate([
 								    { "$project": {
 								        "month": { "$month": "$createdAt" }
-								    }}, 
+								    }},
 								    { "$group": {
 								        "_id": "$month",
 								        "total": { "$sum": 1 }
@@ -70,9 +76,8 @@ module.exports = {
 	//     });
 	// },
 
-		
 
 
-	
+
+
 };
-

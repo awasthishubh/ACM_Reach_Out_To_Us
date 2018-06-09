@@ -8,12 +8,12 @@
 module.exports = {
 
 	attributes: {
-		name: {
-			type:"string"
-		},
-		age: {
-			type:"integer"
-		},
+		// name: {
+		// 	type:"string"
+		// },
+		// age: {
+		// 	type:"integer"
+		// },
 		gender: {
 			type:"string"
 		},
@@ -33,9 +33,9 @@ module.exports = {
 			type:"json",
 			defaultsTo:[]
 		},
-		public:{
-			type:"boolean"
-		},
+		// public:{
+		// 	type:"boolean"
+		// },
 		up: {
 			type: "array",
 			defaultsTo:[]
@@ -43,8 +43,11 @@ module.exports = {
 		down: {
 			type: "array",
 			defaultsTo:[]
+		},
+		additional: {
+			type: "string",
+			defaultsTo:''
 		}
 
 	}
 };
-
